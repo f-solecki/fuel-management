@@ -1,7 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, Image, Dimensions, BackHandler } from 'react-native'
 
 const RideDetails = (props) => {
+
+
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener(
+            "hardwareBackPress",
+            () => {
+                props.navigation.navigate('Rides')
+                return true
+            }
+        );
+
+        return () => backHandler.remove();
+    }, [])
+
     const item = props.route.params
     console.log(item)
     return (<View style={{
@@ -22,7 +36,7 @@ const RideDetails = (props) => {
                         style={{ width: 100, height: 100 }}
                         source={require('../img/usage.png')}
                     />
-                    <Text style={styles.text}>{item.usage}</Text>
+                    <Text style={styles.text}>{item.usage} l/100km</Text>
                 </View>
                 <View style={styles.item}>
                     <Image
@@ -63,7 +77,7 @@ const RideDetails = (props) => {
                         style={{ width: 100, height: 100 }}
                         source={require('../img/price.png')}
                     />
-                    <Text style={styles.text}>{item.fuelprice}</Text>
+                    <Text style={styles.text}>{item.fuelprice}zł</Text>
                 </View>
             </View>
         </View>
@@ -77,11 +91,10 @@ const styles = StyleSheet.create({
         marginLeft: 5
     },
     side: {
-        width: Dimensions.get('window').width / 2
+        width: Dimensions.get('window').width / 2,
     },
     item: {
         alignItems: 'center',
-        justifyContent: 'center'
     },
     text: {
         fontSize: 35,

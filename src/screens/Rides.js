@@ -8,11 +8,11 @@ const Rides = (props) => {
     LogBox.ignoreAllLogs();
 
     useEffect(() => {
+        console.log('Montuje')
         Database.createTable();
         getData();
-
-
     }, [])
+
     useEffect(() => {
         const backAction = () => {
             if (back === true) {
@@ -29,7 +29,7 @@ const Rides = (props) => {
 
         const backHandler = BackHandler.addEventListener(
             "hardwareBackPress",
-            backAction
+            () => backAction()
         );
 
         return () => backHandler.remove();

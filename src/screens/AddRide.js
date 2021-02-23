@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, Text, TextInput, Button } from 'react-native'
+import { View, StyleSheet, Text, TextInput, Button, BackHandler } from 'react-native'
 import Database from '../components/Database'
 
 const AddRide = (props) => {
 
     const today = new Date()
-    const now = today.getDate() + '.' + today.getMonth() + '.' + today.getFullYear()
+    const now = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear()
     const [date, setDate] = useState(now)
     const [kilometers, setKilometers] = useState('')
     const [usage, setUsage] = useState('')
@@ -13,6 +13,18 @@ const AddRide = (props) => {
     const [target, setTarget] = useState('')
     const [fuelprice, setFuelprice] = useState('')
 
+
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener(
+            "hardwareBackPress",
+            () => {
+                props.navigation.navigate('Rides')
+                return true
+            }
+        );
+
+        return () => backHandler.remove();
+    }, [])
 
 
     return (<View>
