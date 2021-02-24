@@ -6,6 +6,7 @@ import { TouchableOpacity, Image, View } from 'react-native'
 import Rides from "./src/screens/Rides"
 import AddRide from "./src/screens/AddRide"
 import RideDetails from './src/screens/RideDetails';
+import Database from './src/components/Database'
 
 
 const Stack = createStackNavigator();

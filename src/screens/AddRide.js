@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, Text, TextInput, Button, BackHandler } from 'react-native'
+import { View, StyleSheet, Text, TextInput, TouchableOpacity, BackHandler } from 'react-native'
 import Database from '../components/Database'
 
 const AddRide = (props) => {
@@ -27,71 +27,100 @@ const AddRide = (props) => {
     }, [])
 
 
-    return (<View>
-        <View>
-            <Text style={styles.header}>Data: </Text>
-            <TextInput
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                onChangeText={text => setDate(text)}
-                value={date}
-            />
-        </View>
-        <View>
-            <Text style={styles.header}>Kilometry: </Text>
-            <TextInput
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                onChangeText={text => setKilometers(text)}
-                value={kilometers}
-            />
-        </View>
-        <View>
-            <Text style={styles.header}>Zużycie: </Text>
-            <TextInput
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                onChangeText={text => setUsage(text)}
-                value={usage}
-            />
-        </View>
-        <View>
-            <Text style={styles.header}>Auto: </Text>
-            <TextInput
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                onChangeText={text => setCar(text)}
-                value={car}
-            />
-        </View>
-        <View>
-            <Text style={styles.header}>Cel podróży: </Text>
-            <TextInput
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                onChangeText={text => setTarget(text)}
-                value={target}
-            />
-        </View>
-        <View>
-            <Text style={styles.header}>Cena paliwa: </Text>
-            <TextInput
-                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                onChangeText={text => setFuelprice(text)}
-                value={fuelprice}
-            />
-        </View>
-        <Button title='Dodaj' onPress={() => {
-            Database.add(date, Number(kilometers), usage, car, target, fuelprice)
-            // props.navigation.navigate('Rides')
-            setDate('')
-            setCar('')
-            setFuelprice('')
-            setKilometers('')
-            setTarget('')
-            setUsage('')
-        }} />
-    </View>)
+    return (
+        <View style={{ flex: 1 }}>
+            <View style={{
+                flexDirection: 'column', flex: 14, backgroundColor: '#fffbf0'
+            }}>
+
+                <View style={styles.item}>
+                    <Text style={styles.header}>Data: </Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={text => setDate(text)}
+                        value={date}
+                    />
+                </View>
+                <View style={styles.item}>
+                    <Text style={styles.header}>Kilometry: </Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={text => setKilometers(text)}
+                        value={kilometers}
+                    />
+                </View>
+                <View style={styles.item}>
+                    <Text style={styles.header}>Zużycie: </Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={text => setUsage(text)}
+                        value={usage}
+                    />
+                </View>
+                <View style={styles.item}>
+                    <Text style={styles.header}>Auto: </Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={text => setCar(text)}
+                        value={car}
+                    />
+                </View>
+                <View style={styles.item}>
+                    <Text style={styles.header}>Cel podróży: </Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={text => setTarget(text)}
+                        value={target}
+                    />
+                </View>
+                <View style={styles.item}>
+                    <Text style={styles.header}>Cena paliwa: </Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={text => setFuelprice(text)}
+                        value={fuelprice}
+                    />
+                </View>
+            </View>
+            <TouchableOpacity style={styles.down} onPress={() => {
+                Database.add(date, Number(kilometers), usage, car, target, fuelprice)
+                // props.navigation.navigate('Rides')
+                setDate('')
+                setCar('')
+                setFuelprice('')
+                setKilometers('')
+                setTarget('')
+                setUsage('')
+            }} ><Text style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}>Add trip</Text>
+            </TouchableOpacity>
+        </View>)
 }
 
 const styles = StyleSheet.create({
     header: {
-        fontSize: 40
+        fontSize: 40,
+        color: '#998970',
+        marginLeft: '5%'
+    },
+    down: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        bottom: 0,
+        backgroundColor: '#ffdca2'
+    },
+    item: {
+        flexDirection: 'column',
+        marginTop: 15
+    },
+    input: {
+        height: 40,
+        borderColor: '#ffdca2',
+        borderWidth: 2,
+        fontSize: 30,
+        width: '90%',
+        marginLeft: '5%',
+        borderRadius: 10
     }
 })
 

@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, Image, Dimensions, BackHandler } from 'react-na
 
 const RideDetails = (props) => {
 
-
     useEffect(() => {
         const backHandler = BackHandler.addEventListener(
             "hardwareBackPress",
@@ -17,7 +16,6 @@ const RideDetails = (props) => {
     }, [])
 
     const item = props.route.params
-    console.log(item)
     return (<View style={{
         flex: 1, backgroundColor: '#fffbf0'
     }}>

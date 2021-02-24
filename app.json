@@ -4,11 +4,11 @@
   "expo": {
     "name": "Fuel",
     "icon": "./src/img/fuel.png",
-    "version": "1.0.1",
+    "version": "1.0.3",
     "slug": "fuel-app",
     "ios": {
       "bundleIdentifier": "com.soolecki.fuel",
-      "buildNumber": "1.0.1"
+      "buildNumber": "1.0.3"
     },
     "android": {
       "package": "com.soolecki.fuel",
