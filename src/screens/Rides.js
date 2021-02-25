@@ -3,12 +3,13 @@ import { View, FlatList, StyleSheet, LogBox, Text, BackHandler, Image, Pressable
 import Database from "../components/Database";
 
 const Rides = (props) => {
+
     const [rides, setRides] = useState([])
     const [back, setBack] = useState(false)
+    const [display, setDisplay] = useState('none')
     LogBox.ignoreAllLogs();
 
     useEffect(() => {
-        console.log('Montuje')
         Database.createTable();
         getData();
     }, [])
@@ -16,13 +17,13 @@ const Rides = (props) => {
     useEffect(() => {
         const backAction = () => {
             if (back === true) {
-                console.log('true')
+                setDisplay('none')
                 BackHandler.exitApp()
                 return true
             } else {
-                console.log('false')
                 setBack(true)
-                window.setTimeout(() => { setBack(false); console.log('changed') }, 3000)
+                setDisplay('flex')
+                window.setTimeout(() => { setBack(false); setDisplay('none') }, 3000)
                 return true
             };
         };
@@ -37,7 +38,7 @@ const Rides = (props) => {
 
 
     const addRide = () => {
-        props.navigation.navigate("AddRide")
+        props.navigation.navigate("AddRide", { fun: () => getData() })
     }
 
     const getData = () => {
@@ -49,13 +50,14 @@ const Rides = (props) => {
 
     return (
         <View style={styles.container}>
+            <View style={{ backgroundColor: '#999', height: 40, justifyContent: 'center', alignItems: 'center', display: display }}><Text style={{ fontSize: 20, color: 'papayawhip' }}>Naciśnij ponownie aby wyjść</Text></View>
             <View style={styles.header}>
                 <FlatList
                     data={rides}
                     style={styles.list}
                     renderItem={({ item }) =>
                         <Pressable
-                            onPress={() => { props.navigation.push('RideDetails', item) }}
+                            onPress={() => { props.navigation.push('RideDetails', { item: item, fun: () => getData() }) }}
                             style={styles.oneItem}>
                             <View style={styles.item}>
                                 <Image
@@ -97,15 +99,15 @@ const styles = StyleSheet.create({
     },
     header: {
         justifyContent: "center",
-        flex: 14,
+        flex: 1,
         alignItems: "center",
         marginLeft: 15
     },
     down: {
         justifyContent: "center",
-        flex: 1,
         alignItems: "center",
-        backgroundColor: '#ffdca2'
+        backgroundColor: '#ffdca2',
+        height: 40
     },
     list: {
         width: '100%'

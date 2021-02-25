@@ -5,9 +5,8 @@ import { TouchableOpacity, Image, View } from 'react-native'
 
 import Rides from "./src/screens/Rides"
 import AddRide from "./src/screens/AddRide"
+import EditRide from "./src/screens/EditRide"
 import RideDetails from './src/screens/RideDetails';
-import Database from './src/components/Database'
-
 
 const Stack = createStackNavigator();
 
@@ -23,28 +22,11 @@ function App() {
         <Stack.Screen name="AddRide" component={AddRide} options={{
           headerStyle: { backgroundColor: 'papayawhip' }
         }} />
-        <Stack.Screen name="RideDetails" component={RideDetails} options={{
-          headerRight: () => (<View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity
-              onPress={() => alert('This is a trash!')}
-            >
-              <Image
-                source={require('./src/img/trash.png')}
-                style={{ height: 30, width: 30, marginRight: 20 }}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => alert('This is an edit!')}
-            >
-              <Image
-                source={require('./src/img/edit.png')}
-                style={{ height: 30, width: 30, marginRight: 20 }}
-              />
-
-            </TouchableOpacity>
-          </View>
-          ),
+        <Stack.Screen name="EditRide" component={EditRide} options={{
           headerStyle: { backgroundColor: 'papayawhip' }
+        }} />
+        <Stack.Screen name="RideDetails" component={RideDetails} options={{
+          headerShown: false
         }} />
       </Stack.Navigator>
 

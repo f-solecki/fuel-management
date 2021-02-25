@@ -2,16 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { View, StyleSheet, Text, TextInput, TouchableOpacity, BackHandler, ScrollView } from 'react-native'
 import Database from '../components/Database'
 
-const AddRide = (props) => {
+const EditRide = (props) => {
 
-    const today = new Date()
-    const now = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear()
-    const [date, setDate] = useState(now)
-    const [kilometers, setKilometers] = useState('')
-    const [usage, setUsage] = useState('')
-    const [car, setCar] = useState('')
-    const [target, setTarget] = useState('')
-    const [fuelprice, setFuelprice] = useState('')
+    const [date, setDate] = useState(props.route.params.item.date)
+    const [kilometers, setKilometers] = useState(props.route.params.item.kilometers.toString())
+    const [usage, setUsage] = useState(props.route.params.item.usage)
+    const [car, setCar] = useState(props.route.params.item.car)
+    const [target, setTarget] = useState(props.route.params.item.target)
+    const [fuelprice, setFuelprice] = useState(props.route.params.item.fuelprice)
 
 
     useEffect(() => {
@@ -83,8 +81,8 @@ const AddRide = (props) => {
                 </View>
             </ScrollView>
             <TouchableOpacity style={styles.down} onPress={() => {
-                Database.add(date, Number(kilometers), usage, car, target, fuelprice)
-                props.navigation.navigate('Rides')
+                Database.update(Number(props.route.params.item.id), date, Number(kilometers), usage, car, target, fuelprice)
+                props.navigation.goBack()
                 props.route.params.fun()
                 setDate('')
                 setCar('')
@@ -92,7 +90,7 @@ const AddRide = (props) => {
                 setKilometers('')
                 setTarget('')
                 setUsage('')
-            }} ><Text style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}>Add trip</Text>
+            }} ><Text style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}>Save changes</Text>
             </TouchableOpacity>
         </View>)
 }
@@ -126,4 +124,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default AddRide
+export default EditRide

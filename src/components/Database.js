@@ -12,7 +12,6 @@ class Database extends Component {
     }
 
     static createTable() {
-        console.log('creating')
         db.transaction(tx => {
             tx.executeSql(
                 "CREATE TABLE IF NOT EXISTS car_trips (id integer primary key autoincrement, date text, kilometers integer, usage text,car text, target text,fuelprice text);"
@@ -49,12 +48,12 @@ class Database extends Component {
         }))
     }
 
-    static updateAlarm(id, date, km, usage, car, target, fuelprice) {
+    static update(id, date, km, usage, car, target, fuelprice) {
         db.transaction(tx => {
             tx.executeSql(
-                `UPDATE car_trips SET date='${date}' kilometers=${km} usage='${usage}' car='${car}' target='${target}' fuelprice='${fuelprice}' WHERE (id = ${id});`
+                `UPDATE car_trips SET date='${date}', kilometers=${km}, usage='${usage}', car='${car}', target='${target}', fuelprice='${fuelprice}' WHERE (id = ${id});`
             );
-        });
+        })
     }
 
     static remove(id) {
